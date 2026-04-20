@@ -1,6 +1,6 @@
-const fs = require("fs");
-const path = require("path");
-const os = require("os");
+import fs from "node:fs";
+import path from "node:path";
+import os from "node:os";
 
 // Use a temp file to track attempts across runs.
 // First run fails, second run passes.

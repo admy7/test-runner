@@ -1,20 +1,16 @@
 # Backend Engineer — Technical Test
 
-## Context
-
-At Heal.dev, were are building an AI QA Agent. Our agent writes and maintains js playwright tests. To do so, we are developing our in-home javascript test runner.
-The person that will join us will primary work on our custom test runner and its integration with our SaaS, github development workflow and the linked infrastructure.
-
 ## Test context
 
 This test has **two parts**:
 
-| Part | What | Time |
-|------|------|------|
-| **Part 1 — Coding** | Build a simple test runner CLI | ~80% (~1h30) |
+| Part                       | What                                           | Time          |
+| -------------------------- | ---------------------------------------------- | ------------- |
+| **Part 1 — Coding**        | Build a simple test runner CLI                 | ~80% (~1h30)  |
 | **Part 2 — System design** | Answer design questions about SaaS integration | ~20% (~30min) |
 
 The objective is **not** just to produce working code — it serves as the basis for a **peer review session**. During this review, we will walk through your solution together to assess:
+
 - **Technical skills & experience**: your understanding of the code you wrote, the trade-offs you made, and your ability to reason about correctness, error handling, and concurrency.
 - **System design thinking**: how you structured your solution, separated concerns, and thought about extensibility and maintainability.
 
@@ -38,6 +34,7 @@ You can use **JavaScript/TypeScript, Python, Go, Java or Rust**. No external tes
 ### Input
 
 Your CLI receives:
+
 - A **directory** containing test files (default: `./tests`)
 - Optional flags:
   - `--concurrency <n>` — max parallel tests (default: `1`, i.e. sequential)
@@ -46,6 +43,7 @@ Your CLI receives:
   - `--verbose` — enable detailed logging during execution
 
 Example:
+
 ```bash
 my-runner ./tests --concurrency 4 --timeout 5000 --reporter json
 ```
@@ -97,8 +95,16 @@ If `--reporter json` is passed, write a JSON report to `report.json` in the work
       "duration": 120,
       "attempts": 1,
       "logs": [
-        { "timestamp": "2026-03-16T10:00:00.000Z", "level": "info", "message": "Test started" },
-        { "timestamp": "2026-03-16T10:00:00.120Z", "level": "info", "message": "Test passed" }
+        {
+          "timestamp": "2026-03-16T10:00:00.000Z",
+          "level": "info",
+          "message": "Test started"
+        },
+        {
+          "timestamp": "2026-03-16T10:00:00.120Z",
+          "level": "info",
+          "message": "Test passed"
+        }
       ]
     },
     {
@@ -108,8 +114,16 @@ If `--reporter json` is passed, write a JSON report to `report.json` in the work
       "attempts": 3,
       "error": "TIMEOUT",
       "logs": [
-        { "timestamp": "2026-03-16T10:00:00.121Z", "level": "info", "message": "Test started" },
-        { "timestamp": "2026-03-16T10:00:05.121Z", "level": "error", "message": "Test timed out after 5000ms" }
+        {
+          "timestamp": "2026-03-16T10:00:00.121Z",
+          "level": "info",
+          "message": "Test started"
+        },
+        {
+          "timestamp": "2026-03-16T10:00:05.121Z",
+          "level": "error",
+          "message": "Test timed out after 5000ms"
+        }
       ]
     }
   ]
@@ -160,18 +174,18 @@ Parse a Playwright-style configuration file and run tests respecting project dep
 
 ```typescript
 // playwright.config.ts
-import { defineConfig } from '@playwright/test';
+import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
   projects: [
     {
-      name: 'setup',
+      name: "setup",
       testMatch: /setup\.test\.js/,
     },
     {
-      name: 'tests',
+      name: "tests",
       testMatch: /.*\.test\.js/,
-      dependencies: ['setup'],
+      dependencies: ["setup"],
     },
   ],
 });
@@ -186,27 +200,28 @@ export default defineConfig({
 
 The `tests/` directory contains sample test files you can use to validate your runner:
 
-| File | Behavior |
-|------|----------|
-| `math.test.js` | Passes |
-| `string.test.js` | Passes |
-| `async.test.js` | Passes after 1s |
-| `failure.test.js` | Always fails |
-| `timeout.test.js` | Hangs for 60s (should be killed) |
-| `flaky.test.js` | Fails on first run, passes on retry (uses a temp file as state) |
+| File              | Behavior                                                        |
+| ----------------- | --------------------------------------------------------------- |
+| `math.test.js`    | Passes                                                          |
+| `string.test.js`  | Passes                                                          |
+| `async.test.js`   | Passes after 1s                                                 |
+| `failure.test.js` | Always fails                                                    |
+| `timeout.test.js` | Hangs for 60s (should be killed)                                |
+| `flaky.test.js`   | Fails on first run, passes on retry (uses a temp file as state) |
 
 ## What we evaluate
 
-| Criteria | What we look for |
-|----------|-----------------|
-| **Correctness** | Does the runner handle all cases? (pass, fail, timeout, retry) |
-| **Code quality** | Clean structure, separation of concerns, naming |
-| **Error handling** | Graceful handling of crashes, missing files, edge cases |
-| **Concurrency** | Correct parallel execution, no race conditions |
-| **CLI design** | Clear usage, argument validation, helpful error messages |
-| **Testability** | Is the code structured so it can be easily tested? |
+| Criteria           | What we look for                                               |
+| ------------------ | -------------------------------------------------------------- |
+| **Correctness**    | Does the runner handle all cases? (pass, fail, timeout, retry) |
+| **Code quality**   | Clean structure, separation of concerns, naming                |
+| **Error handling** | Graceful handling of crashes, missing files, edge cases        |
+| **Concurrency**    | Correct parallel execution, no race conditions                 |
+| **CLI design**     | Clear usage, argument validation, helpful error messages       |
+| **Testability**    | Is the code structured so it can be easily tested?             |
 
 We do **not** evaluate:
+
 - UI polish or colors
 - Performance optimization
 - Fancy features beyond the spec
@@ -226,6 +241,7 @@ During the review, we will discuss how you would integrate this test runner into
 ## Delivery
 
 Push your solution to a new branch in this repository. Include a brief `SOLUTION.md` explaining:
+
 - How to run your solution
 - Any design decisions worth noting
 - What you would improve with more time

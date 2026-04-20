@@ -1,4 +1,4 @@
-const assert = require("assert");
+import assert from "node:assert";
 
 function fetchData() {
   return new Promise((resolve) => {

@@ -1,4 +1,4 @@
-const assert = require("assert");
+import assert from "node:assert";
 
 assert.strictEqual("hello".toUpperCase(), "HELLO");
 assert.strictEqual("  trim  ".trim(), "trim");

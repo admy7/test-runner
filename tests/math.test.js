@@ -1,4 +1,4 @@
-const assert = require("assert");
+import assert from "node:assert";
 
 assert.strictEqual(2 + 2, 4);
 assert.strictEqual(10 * 3, 30);
